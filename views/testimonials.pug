@@ -1,0 +1,35 @@
+extends ./layout/index
+block content
+    main.container.mt-3
+        h1.text-center.mt-1 #{page}
+        
+        include ./layout/testimonialsBlock.pug
+
+        .row
+            .col-md-12
+                h2.d-block.w-100.text-center.mt-4.mb-4 Add a new Review
+
+                if(errors)
+                    each error in errors 
+                        div.alert.col.alert-danger.text-center #{error.errorMessage}
+                        
+
+            .row.justify-content-center.col 
+                .col-md-8
+                    form(action="/testimonials" method="POST")
+
+                        .form-group 
+                            label(for="name") Name: 
+                            input#name(type="text", placeholder="Your name", name="name", value=name class="form-control") 
+                            //- we use the variable to write the value in case if there was an error so we can keep what the user wrote
+
+                        .form-group 
+                            label(for="email") Email: 
+                            input#email(type="text", placeholder="Your email", name="email", value=email class="form-control")
+                            
+                        .form-group 
+                            label(for="message") Review: 
+                            textarea#message(name="message", cols="30", rows="6", placeholder="Write your review" class="form-control")=message 
+
+                        input.btn.btn-success.btn-block(type="submit")
+            
